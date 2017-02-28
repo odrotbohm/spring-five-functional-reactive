@@ -1,0 +1,15 @@
+= Spring 5 - Functional, reactive web example
+
+This repository contains the sample code for Spring WebFlux's functional web API and consists of the following building blocks:
+
+1. A `User` domain type and a reactive repository mapped using Spring Data MongoDB.
+2. A `FunctionalWebController` to contain handler functions.
+3. An `@Bean`-Definition for a `RouterFunction` that uses the functional API to configure the mappings of requests to the `FunctionalWebController`.
+
+== How to run the sample
+
+```bash
+$ git clone https://github.com/olivergierke/spring-five-functional-reactive
+$ cd spring-five-functional-reactive
+$ ./mvnw spring-boot:run
+$ curl http://localhost:8080/users
