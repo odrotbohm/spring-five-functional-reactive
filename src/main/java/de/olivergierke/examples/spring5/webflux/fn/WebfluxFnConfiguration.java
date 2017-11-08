@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.olivergierke.examples.spring5;
+package de.olivergierke.examples.spring5.webflux.fn;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 
@@ -22,21 +22,16 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
-@SpringBootApplication
-class DemoApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
-	}
+@Configuration
+class WebfluxFnConfiguration {
 
 	/**
 	 * Defines the routes mapped to {@link FunctionalUserController}.
@@ -62,7 +57,7 @@ class DemoApplication {
 	ApplicationRunner onStartup(UserRepository repository) {
 
 		// We need to call ….block() here to actually execute the call.
-		return (args) -> repository.save(Mono.just(new User("Dave Matthews"))).block();
+		return (args) -> repository.save(new User("Dave Matthews")).block();
 	}
 
 	/**
@@ -85,7 +80,7 @@ class DemoApplication {
 		Mono<ServerResponse> getUser(ServerRequest request) {
 
 			Mono<User> user = Mono.just(request.pathVariable("id")) //
-					.then(repository::findById);
+					.flatMap(repository::findById);
 
 			return ServerResponse.ok().body(user, User.class);
 		}

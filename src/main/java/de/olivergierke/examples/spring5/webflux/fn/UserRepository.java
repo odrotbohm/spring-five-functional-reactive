@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.olivergierke.examples.spring5;
+package de.olivergierke.examples.spring5.webflux.fn;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -48,5 +48,5 @@ interface UserRepository extends Repository<User, String> {
 	 * @param user
 	 * @return
 	 */
-	Mono<User> save(Mono<User> user);
+	Mono<User> save(User user);
 }

@@ -69,6 +69,7 @@
 			<url>https://repo.spring.io/libs-snapshot</url>
 		</repository>
 	</repositories>
+
 	<pluginRepositories>
 		<pluginRepository>
 			<id>spring-libs-snapshot</id>

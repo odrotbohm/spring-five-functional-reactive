@@ -13,25 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.olivergierke.examples.spring5;
+package de.olivergierke.examples.spring5.reactor;
 
-import lombok.Data;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.junit.Test;
 
 /**
- * A {@link User} domain type.
- *
  * @author Oliver Gierke
  */
-@Data
-@Document
-class User {
+public class ReactorSample {
 
-	private String id;
-	private String name;
+	@Test
+	public void reactorFundamentals() {
 
-	public User(String name) {
-		this.name = name;
+		Mono.just("Hello") //
+				.map(word -> word.concat(" World!")) //
+				.subscribe(System.out::println);
+
+		Flux.just("Hello", "World") //
+				.flatMap(word -> Flux.fromArray(word.split(""))) //
+				.subscribe(System.out::println);
 	}
 }

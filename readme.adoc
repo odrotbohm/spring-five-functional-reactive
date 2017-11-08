@@ -2,6 +2,14 @@
 
 This repository contains the sample code for Spring WebFlux's functional web API and consists of the following building blocks:
 
+== A sample for Spring WebFlux
+
+1. An `Event` domain type and a corresponding repository exposing a tailable query method.
+2. An `ApplicationRunner` that creates a capped collection for events and inserts a new one every two seconds.
+3. A Spring WebFlux controller to produce both a Server-Sent Events and JSON stream.
+
+== A sample for Spring WebFlux.fn
+
 1. A `User` domain type and a reactive repository mapped using Spring Data MongoDB.
 2. A `FunctionalWebController` to contain handler functions.
 3. An `@Bean`-Definition for a `RouterFunction` that uses the functional API to configure the mappings of requests to the `FunctionalWebController`.
@@ -12,4 +20,10 @@ This repository contains the sample code for Spring WebFlux's functional web API
 $ git clone https://github.com/olivergierke/spring-five-functional-reactive
 $ cd spring-five-functional-reactive
 $ ./mvnw spring-boot:run
+
+# To see the events inserted on the server streaming to the client
+$ curl -H "Accept: text/event-stream" http://localhost:8080/events
+
+# To trigger the functional controller
 $ curl http://localhost:8080/users
+```
